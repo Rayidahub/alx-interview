@@ -1,38 +1,21 @@
-
 #!/usr/bin/python3
+'''A module for working with lockboxes.
+'''
 
-from collections import deque
 
 def canUnlockAll(boxes):
-    """
-    Check if all the boxes can be opened.
-
-    Args:
-    boxes (List[List[int]]): A list of lists where each sublist represents a box and contains keys to other boxes.
-
-    Returns:
-    bool: True if all boxes can be opened, False otherwise.
-    """
-    if not boxes:
-        return False
-
-    num_boxes = len(boxes)
-    visited = set()
-    queue = deque([0])  # Start with the first box (box 0)
-    visited.add(0)
-
-    while queue:
-        current_box = queue.popleft()
-
-    #!/usr/bin/python3
-
-canUnlockAll = __import__('0-lockboxes').canUnlockAll
-
-boxes = [[1], [2], [3], [4], []]
-print(canUnlockAll(boxes))
-
-boxes = [[1, 4, 6], [2], [0, 4, 1], [5, 6, 2], [3], [4, 1], [6]]
-print(canUnlockAll(boxes))
-
-boxes = [[1, 4], [2], [0, 4, 1], [3], [], [4, 1], [5, 6]]
-print(canUnlockAll(boxes))
+    '''Checks if all the boxes in a list of boxes containing the keys
+    (indices) to other boxes can be unlocked given that the first
+    box is unlocked.
+    '''
+    n = len(boxes)
+    seen_boxes = set([0])
+    unseen_boxes = set(boxes[0]).difference(set([0]))
+    while len(unseen_boxes) > 0:
+        boxIdx = unseen_boxes.pop()
+        if not boxIdx or boxIdx >= n or boxIdx < 0:
+            continue
+        if boxIdx not in seen_boxes:
+            unseen_boxes = unseen_boxes.union(boxes[boxIdx])
+            seen_boxes.add(boxIdx)
+    return n == len(seen_boxes)
