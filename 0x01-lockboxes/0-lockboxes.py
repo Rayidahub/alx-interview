@@ -24,22 +24,15 @@ def canUnlockAll(boxes):
     while queue:
         current_box = queue.popleft()
 
-        # Check if all boxes are unlocked
-        if len(visited) == num_boxes:
-            return True
+    #!/usr/bin/python3
 
-        # Add keys of the current box to the queue if not visited
-        for key in boxes[current_box]:
-            if key not in visited and 0 <= key < num_boxes:
-                queue.append(key)
-                visited.add(key)
+canUnlockAll = __import__('0-lockboxes').canUnlockAll
 
-    return len(visited) == num_boxes
+boxes = [[1], [2], [3], [4], []]
+print(canUnlockAll(boxes))
 
-if __name__ == "__main__":
-    # Example usage:
-    boxes1 = [[1], [2], [3], []]
-    print(canUnlockAll(boxes1))  # Output: True
+boxes = [[1, 4, 6], [2], [0, 4, 1], [5, 6, 2], [3], [4, 1], [6]]
+print(canUnlockAll(boxes))
 
-    boxes2 = [[1, 2], [3], [4], [], []]
-    print(canUnlockAll(boxes2))  # Output: False
+boxes = [[1, 4], [2], [0, 4, 1], [3], [], [4, 1], [5, 6]]
+print(canUnlockAll(boxes))
